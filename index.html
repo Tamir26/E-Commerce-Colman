@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahsany Hashmal - Electronic Marketplace</title>
+    <link rel="store-icon" sizes="180x180" href="images/icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon.png">
+    <link rel="stylesheet" href="mahsany-hashmal.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
+</head>
+<body>
+    <header>
+        <nav class="menu" aria-label="Main Navigation">
+            <span class="logo">
+                <a href="index.html"><img src="./images/logo.png" alt="Mahsany Hashmal Logo"></a> 
+            </span>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li class="nav-username"><a href="user.html">Welcome, Guest</a></li>
+            </ul>
+            <div class="nav-input">
+                <div class="search-bar" id="search-bar">
+                    <input id="search-bar-text" type="text" placeholder="Search...">
+                    <button id="search-btn" type="button">Search</button>
+                    <div id="search-message"></div>
+                </div>    
+                <div class="auth-input">
+                    <img>
+                    <button id="login" popovertarget="login-form">Login</button>
+                    <button id="sign-in"popovertarget="sign-in-form">Sign in</button>
+                </div>
+            </div>
+        </nav>  
+        <div id="weather-ticker">
+            <div id="weather-content">Loading data...</div>
+        </div>    
+    </header>
+
+    <main>
+        <section class="page" id="home-page">
+            <div class="text-center">
+                <div id="headings">
+                    <h1>Welcome to your local digital marketplace!</h1>
+                </div>
+                <div id="opening-video">
+                    <video src="./images/Electronics store.mp4" autoplay  controls>Your browser doesn't support Videos</video>
+                </div>
+                <p>Find the best deals on electronics and gadgets.</p>
+                <a href="#categories" class="cta-button">Shop Now</a>
+            </div>
+            <div id="categories">
+                <h2>Popular Categories</h2>
+                <div id="gif-categories">
+                    <a class="category-item" href="categories.html#computers">
+                        <img src="./GIFs/computer-opening.gif" alt="Laptops & PCs">
+                        <h3>Laptops & PCs</h3>
+                    </a>
+                    <a class="category-item" href="categories.html#phones">
+                        <img src="./GIFs/phone-opening.gif" alt="Smartphones">
+                        <h3>Smartphones</h3>
+                    </a>
+                    <a class="category-item" href="categories.html#tablets">
+                        <img src="./GIFs/tablets-opening.gif" alt="Tablets">
+                        <h3>Tablets</h3>
+                    </a>
+                    <a class="category-item" href="categories.html#electronics">
+                        <img src="./GIFs/devices-opening.gif" alt="Household Electronics">
+                        <h3>Household Electronics</h3>
+                    </a>
+                    <a class="category-item" href="categories.html#TVs">
+                        <img src="./GIFs/TVs-opening.gif" alt="TVs">
+                        <h3>TVs</h3>
+                    </a>
+                </div>
+            </div>
+            <script type="text/javascript" src="https://feed.mikle.com/js/fw-loader.js" preloader-text="Loading" data-fw-param="170056/"></script> 
+            <div id="details-bar" onload="">
+                <div id="map">
+                    <h2>Our Branches</h2>
+                </div>
+            </div>
+      </section>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        // יצירת מפה במרכז תל אביב
+        var map = L.map('map', {
+    minZoom: 12,
+    maxZoom: 18,
+    zoomControl: true,
+    zoomControlOptions: {
+        position: 'topleft'
+    }
+        }).setView([32.0853, 34.7818], 15);
+
+       
+
+// Ensure zoom control is properly positioned
+map.zoomControl.setPosition('topleft');
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 60,
+        }).addTo(map);
+        
+        L.marker([32.0853, 34.7818]).addTo(map)
+            .bindPopup('Tel Aviv Branch')
+            .openPopup();
+
+        L.marker([32.1476, 34.8395]).addTo(map)
+            .bindPopup('Ramat HaSharon Branch')
+            .openPopup();
+
+
+        L.marker([29.5550, 34.9666]).addTo(map)
+            .bindPopup('Eilat Branch')
+            .openPopup();
+
+        L.marker([31.2438, 34.7977]).addTo(map)
+            .bindPopup('Beer Sheva Branch')
+            .openPopup();
+
+        L.marker([32.1131, 35.1805]).addTo(map)
+            .bindPopup('Ariel Branch')
+            .openPopup();
+    </script>
+    <script defer>
+                const apiKey = '1a02cdbb957dc58163fa24417b70ceee';
+        const cities = ['Tel Aviv', 'Beersheba', 'Eilat', 'Haifa', 'Ramat Hasharon', 'New York', 'Ariel'];
+
+        async function getWeather(city) {
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=he`;
+            try {
+                const response = await fetch(url);
+                if (response.ok) {
+                    const data = await response.json();
+                    return {
+                        city: data.name,
+                        temp: Math.round(data.main.temp), // Round temperature
+                        description: data.weather[0].description,
+                        humidity: data.main.humidity,
+                        wind: Math.round(data.wind.speed * 10) / 10 // Round to 1 decimal
+                    };
+                } else {
+                    console.error(`Error fetching weather for ${city}:`, response.status);
+                    return null;
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                return null;
+            }
+        }
+
+        async function displayWeatherTicker() {
+            const weatherContent = document.getElementById('weather-content');
+            let tickerText = '';
+            
+            try {
+                // Fetch all weather data in parallel
+                const weatherPromises = cities.map(city => getWeather(city));
+                const weatherResults = await Promise.all(weatherPromises);
+                
+                weatherResults.forEach((weather, index) => {
+                    if (weather) {
+                        tickerText += ` 🌍 ${weather.city}: 🌡️ ${weather.temp}°C, ${weather.description}, 💧 לחות: ${weather.humidity}%, 🌬️ רוח: ${weather.wind} מ/ש &nbsp;&nbsp;|&nbsp;&nbsp; `;
+                    } else {
+                        tickerText += ` ⚠️ שגיאה בטעינת הנתונים עבור ${cities[index]} &nbsp;&nbsp;|&nbsp;&nbsp; `;
+                    }
+                });
+
+                weatherContent.classList.remove('loading');
+                weatherContent.innerHTML = tickerText || 'שגיאה בטעינת הנתונים';
+
+                // Restart animation after data is loaded
+                weatherContent.style.animation = 'none';
+                weatherContent.offsetHeight; // Trigger reflow
+                weatherContent.style.animation = 'ticker 45s linear infinite';
+            } catch (error) {
+                console.error('Error displaying weather:', error);
+                weatherContent.classList.remove('loading');
+                weatherContent.innerHTML = 'שגיאה בטעינת הנתונים';
+            }
+        }
+
+        // Initial load
+        displayWeatherTicker();
+
+        // Refresh data every 5 minutes
+        setInterval(displayWeatherTicker, 300000);
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script src="auth.js" defer></script>
+    <script src="./config.js"  type="module" defer></script>
+    <script src="./scripts.js" type="module" defer></script>
+</body>
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>About Us</h3>
+            <p>MahsanyHashmal is the Marketplace for Your daily Electric devices and  products
+            </p>
+        </div>
+        <div class="footer-section">
+            <h3>Contact us</h3>
+            <p>Email: info@mahsany-hashmal.com</p>
+            <p>Phone: (123) 456-7890</p>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="/twiter.html" class="social-icon">Twitter</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Mahsany Hashmal. All rights reserved.</p>
+    </div>
+</footer>
+<form popover class="auth-form" id="login-form">
+    <h2>Log in</h2>
+    <input type="text" id="username" name="username" placeholder="Username" required>
+    <input type="password" id="password" name="password" placeholder="Password"  minlength="8" required>
+    <button type="submit">Log in</button>
+    <div id="message"></div>
+</form>
+<form popover class="auth-form" id="sign-in-form">
+    <h2>Sign-in</h2>
+    <input type="text" id="first-name" name="first-name" placeholder="First-name" required>
+    <input type="text" id="last-name" name="last-name" placeholder="Last-name" required>
+    <input type="text" id="signin-username" name="username" placeholder="Username" required>
+    <input type="password" id="first-password" name="first-password" placeholder="Password"  minlength="8" required>
+    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password"  minlength="8" required>
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <input type="date" id="birthday-date" name="birthday-date" max="2006-12-31"min="1924-01-01" title="You must be at least 18 years old"placeholder="Birth Date (18+ only)"  required>
+    <button type="submit">Sign-in</button>
+    <div id="signin-message"></div>
+</form>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahsany Hashmal - Electronic Marketplace</title>
+    <link rel="store-icon" sizes="180x180" href="images/icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/icon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/icon.png">
+    <link rel="stylesheet" href="mahsany-hashmal.css">
+    
+</head>
+<body>
+    <header>
+        <nav class="menu" aria-label="Main Navigation">
+            <span class="logo">
+                <a href="index.html"><img src="./images/logo.png" alt="Mahsany Hashmal Logo"></a> 
+            </span>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="categories.html">Categories</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li class="nav-username"><a href="user.html">Welcome, Guest</a></li>
+            </ul>
+            <div class="nav-input">
+                <div class="search-bar">
+                    <input id="search-bar-text" type="text" placeholder="Search...">
+                    <button id="search-btn" type="button" >Search</button>
+                    <div id="search-message"></div>
+                </div>    
+                <div class="auth-input">
+                    <img>
+                    <button id="login" popovertarget="login-form">Login</button>
+                    <button id="sign-in"popovertarget="sign-in-form">Sign in</button>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.5/dist/js.cookie.min.js"></script>
+    <script src="auth.js" defer></script>
+    <script src="config.js"  type="module" defer></script>
+    <script src="scripts.js" type="module" defer></script>
+</body>
+
+<footer>
+    <div class="footer-content">
+        <div class="footer-section">
+            <h3>About Us</h3>
+            <p>MahsanyHashmal is the Marketplace for Your daily Electric devices and  products
+            </p>
+        </div>
+        <div class="footer-section">
+            <h3>Contact us</h3>
+            <p>Email: info@mahsany-hashmal.com.com</p>
+            <p>Phone: (123) 456-7890</p>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-icons">
+                <a href="/twiter.html" class="social-icon">Twitter</a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2024 Mahsany Hashmal. All rights reserved.</p>
+    </div>
+</footer>
+<form popover class="auth-form" id="login-form">
+    <h2>Log in</h2>
+    <input type="text" id="username" name="username" placeholder="Username" required>
+    <input type="password" id="password" name="password" placeholder="Password"  minlength="8" required>
+    <button type="submit">Log in</button>
+    <div id="message"></div>
+</form>
+<form popover class="auth-form" id="sign-in-form">
+    <h2>Sign-in</h2>
+    <input type="text" id="first-name" name="first-name" placeholder="First-name" required>
+    <input type="text" id="last-name" name="last-name" placeholder="Last-name" required>
+    <input type="text" id="signin-username" name="username" placeholder="Username" required>
+    <input type="password" id="first-password" name="first-password" placeholder="Password"  minlength="8" required>
+    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm Password"  minlength="8" required>
+    <input type="email" id="email" name="email" placeholder="Email" required>
+    <input type="date" id="birthday-date" name="birthday-date" placeholder="Birthday date" required>
+    <button type="submit">Sign-in</button>
+    <div id="signin-message"></div>
+</form>
+</html>

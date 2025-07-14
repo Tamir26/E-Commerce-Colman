@@ -1,0 +1,39 @@
+gourmet-grove/
+├── client/
+│   ├── public/
+│   │   ├── index.html
+│   │   ├── css/
+│   │   │   ├── main.css
+│   │   │   └── responsive.css
+│   │   ├── js/
+│   │   │   ├── main.js
+│   │   │   └── api.js
+│   │   └── assets/
+│   │       ├── images/
+│   │       └── fonts/
+│   └── src/
+│       ├── components/
+│       ├── views/
+│       └── utils/
+├── server/
+│   ├── config/
+│   │   └── database.js
+│   ├── controllers/
+│   │   ├── productController.js
+│   │   ├── userController.js
+│   │   └── orderController.js
+│   ├── models/
+│   │   ├── Product.js
+│   │   ├── User.js
+│   │   └── Order.js
+│   ├── routes/
+│   │   ├── api.js
+│   │   └── auth.js
+│   ├── services/
+│   │   └── emailService.js
+│   ├── utils/
+│   │   └── validation.js
+│   └── server.js
+├── .gitignore
+├── package.json
+└── README.md
